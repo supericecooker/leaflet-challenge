@@ -31,7 +31,7 @@ function createFeatures(earthquakeData) {
   };
 
    //Array that holds circles
-   var myCircleArray = new Array();
+   var circleArray = new Array();
 
    // Loop through data
    for (var i = 0; i < earthquakeData.length; i++) {
@@ -58,19 +58,19 @@ function createFeatures(earthquakeData) {
      }
  
      // Add circles to map
-     var myCircle = L.circle(coordinates, {
+     var circle = L.circle(coordinates, {
        fillOpacity: 0.4,
        color: color,
        fillColor: color,
        radius: (properties.mag * 10000)
-     }).bindPopup("<h1>" + properties.place + "</h1> <hr> <h3>Magnitud: " + properties.mag.toFixed(2) + "</h3>");
+     }).bindPopup("<h1>" + properties.place + "</h1> <hr> <h3>Magnitude: " + properties.mag.toFixed(2) + "</h3>");
 
      //push data circle
-     myCircleArray.push(myCircle);
+     circleArray.push(circle);
    }
  
    //Create the layer for the circles
-   var earthquakes = L.layerGroup(myCircleArray);
+   var earthquakes = L.layerGroup(circleArray);
  
    // Define a baseMaps object to hold our base layers
    var baseMaps = {
