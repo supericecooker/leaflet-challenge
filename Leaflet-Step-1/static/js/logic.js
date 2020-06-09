@@ -58,12 +58,14 @@ function createFeatures(earthquakeData) {
      }
  
      // Add circles to map
+      // Define a function we want to run once for each feature in the features array
+  // Give each feature a popup describing the place and time of the earthquake
      var circle = L.circle(coordinates, {
        fillOpacity: 0.4,
        color: color,
        fillColor: color,
        radius: (properties.mag * 10000)
-     }).bindPopup("<h1>" + properties.place + "</h1> <hr> <h3>Magnitude: " + properties.mag.toFixed(2) + "</h3>");
+     }).bindPopup("<h3>" + properties.place + "</h3><hr><p>Magnitude: " + properties.mag.toFixed(2) + "</p>");
 
      //push data circle
      circleArray.push(circle);
@@ -91,7 +93,7 @@ function createFeatures(earthquakeData) {
    });
  
    L.control.layers(baseMaps,overlayMaps, {
-      collapsed: false
+      collapsed: true
    }).addTo(myMap);
  
    // adding legend
@@ -104,7 +106,7 @@ function createFeatures(earthquakeData) {
      // legend background
      for (var i = 0; i < labels.length; i++) {
        div.innerHTML +=
-          '<p style="margin-left: 30px">' + '<i style="background:' + colors[i] + ' "></i>' + '&nbsp;&nbsp;' + labels[i]+ '<\p>';
+          '<p style="margin-left: 30px"></p>' + '<i style="background:'+ colors[i] +' "></i>' + labels[i]+ '<\p>';
      }
      return div;
    };
@@ -112,10 +114,10 @@ function createFeatures(earthquakeData) {
    //Add the legend by default
    legend.addTo(myMap)
  
-   myMap.on('overlayadd', function(a) {
+   myMap.on('add', function(a) {
      legend.addTo(myMap);
    });
-   myMap.on('overlayremove', function(a) {
+   myMap.on('remove', function(a) {
      myMap.removeControl(legend);
    });
  }
